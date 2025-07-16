@@ -386,7 +386,7 @@ const VehicleCard = ({ vehicle, index, viewMode = "grid" }) => {
           </div>
 
           <Link to={`/vehicle/${vehicle.id}`}>
-            <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 text-sm">
+            <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 text-sm" onClick={()=>window.scrollTo(0,0)}>
               View Details
             </button>
           </Link>

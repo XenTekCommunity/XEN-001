@@ -12,21 +12,21 @@ const Hero = () => {
     {
       title: "Find Your Perfect Vehicle",
       subtitle: "Premium quality second-hand vehicles with guaranteed satisfaction",
-      image: "/placeholder.svg?height=600&width=1200",
+      image: "https://images.unsplash.com/photo-1589148938909-4d241c91ee52?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       cta: "Browse Vehicles",
       link: "/vehicles",
     },
     {
       title: "Trusted by Thousands",
       subtitle: "Over 10 years of experience in the automotive industry",
-      image: "/placeholder.svg?height=600&width=1200",
+      image: "https://images.unsplash.com/photo-1625727297661-cffed26d3518?q=80&w=1176&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       cta: "Learn More",
       link: "#about",
     },
     {
       title: "Best Prices Guaranteed",
       subtitle: "Competitive pricing with transparent deals and no hidden fees",
-      image: "/placeholder.svg?height=600&width=1200",
+      image: "https://images.unsplash.com/photo-1602449996410-427f8fc716ea?q=80&w=1240&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       cta: "Get Quote",
       link: "/contact",
     },
@@ -108,14 +108,14 @@ const Hero = () => {
             {heroSlides[currentSlide].link.startsWith("#") ? (
               <button
                 onClick={() => scrollToSection(heroSlides[currentSlide].link)}
-                className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-4 rounded-lg transform hover:scale-105 transition-all duration-300 inline-flex items-center"
+                className="bg-orange-600 hover:bg-gray-200 text-white font-semibold  hover:text-black text-lg px-8 py-4 rounded-lg transform hover:scale-105 transition-all duration-300 inline-flex items-center"
               >
                 {heroSlides[currentSlide].cta}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </button>
             ) : (
               <Link to={heroSlides[currentSlide].link}>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-4 rounded-lg transform hover:scale-105 transition-all duration-300 inline-flex items-center">
+                <button className="bg-orange-600  hover:bg-gray-200 font-semibold text-white hover:text-black text-lg px-8 py-4 rounded-lg transform hover:scale-105 transition-all duration-300 inline-flex items-center">
                   {heroSlides[currentSlide].cta}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </button>

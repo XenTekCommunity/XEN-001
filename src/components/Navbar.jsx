@@ -94,7 +94,7 @@ const Navbar = () => {
                 { name: "Home", path: "/" },
                 { name: "Vehicles", path: "/vehicles" },
                 { name: "Services", action: () => scrollToSection("services") },
-                { name: "About", action: () => scrollToSection("about") },
+                { name: "About", path: "/about" },
                 { name: "Contact", path: "/contact" },
               ].map((item, index) => (
                 <motion.div
@@ -106,7 +106,7 @@ const Navbar = () => {
                   {item.path ? (
                     <Link
                       to={item.path}
-                      className="relative text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 group"
+                      className="relative uppercase text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 group" onClick={()=>window.scrollTo(0,0)}
                     >
                       {item.name}
                       <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
@@ -114,7 +114,7 @@ const Navbar = () => {
                   ) : (
                     <button
                       onClick={item.action}
-                      className="relative text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 group"
+                      className="relative uppercase text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 group"
                     >
                       {item.name}
                       <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
@@ -175,8 +175,8 @@ const Navbar = () => {
                 ) : (
                   <div className="flex items-center space-x-2">
                     <SignUpButton mode="modal">
-                      <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
-                        Sign Up / Login
+                      <button className="bg-black text-white font-medium px-4 py-2 rounded-lg hover:bg-gray-200 shadow-lg hover:text-black transition-all duration-300 transform hover:scale-105">
+                        Sign Up
                       </button>
                     </SignUpButton>
                   </div>
@@ -232,7 +232,7 @@ const Navbar = () => {
                     { name: "Home", path: "/" },
                     { name: "Vehicles", path: "/vehicles" },
                     { name: "Services", action: () => scrollToSection("services") },
-                    { name: "About", action: () => scrollToSection("about") },
+                    { name: "About", path: "/about" },
                     { name: "Contact", path: "/contact" },
                   ].map((item, index) => (
                     <motion.div
@@ -296,8 +296,8 @@ const Navbar = () => {
                       <div className="space-y-3">
                         
                         <SignUpButton mode="modal">
-                          <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
-                            Sign Up / Login
+                          <button className="w-full bg-black text-white font-medium py-2 rounded-lg transition-all duration-300">
+                            Sign Up
                           </button>
                         </SignUpButton>
                       </div>

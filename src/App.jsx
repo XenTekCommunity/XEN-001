@@ -9,6 +9,7 @@ import VehicleDetail from "./pages/VehicleDetail"
 import BrandPage from "./pages/BrandPage"
 import Contact from "./pages/Contact"
 import AdminDashboard from "./pages/AdminDashboard"
+import About from "./pages/About"
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/vehicle/:id" element={<VehicleDetail />} />
         <Route path="/brand/:brandName" element={<BrandPage />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About/>} />
         <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
       <Footer />
