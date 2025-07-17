@@ -177,7 +177,7 @@ const Navbar = () => {
                   <div className="flex items-center space-x-2">
                     <SignUpButton mode="modal">
                       <button className="bg-black text-white font-medium px-4 py-2 rounded-lg hover:bg-gray-200 shadow-lg hover:text-black transition-all duration-300 transform hover:scale-105">
-                        Sign Up
+                        SIGN UP
                       </button>
                     </SignUpButton>
                   </div>
@@ -298,7 +298,7 @@ const Navbar = () => {
                         
                         <SignUpButton mode="modal">
                           <button className="w-full bg-black text-white font-medium py-2 rounded-lg transition-all duration-300">
-                            Sign Up
+                            SIGN UP
                           </button>
                         </SignUpButton>
                       </div>
