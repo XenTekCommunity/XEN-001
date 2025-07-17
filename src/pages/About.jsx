@@ -20,6 +20,7 @@ import {
   ArrowRight,
   Play,
 } from "lucide-react"
+import { Link } from "react-router-dom"
 
 const About = () => {
   const [activeTab, setActiveTab] = useState("mission")
@@ -198,20 +199,7 @@ const About = () => {
               our core.
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="flex flex-wrap justify-center gap-4"
-            >
-              <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2">
-                <Play className="h-5 w-5" />
-                Watch Our Story
-              </button>
-              <button className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-105">
-                Download Brochure
-              </button>
-            </motion.div>
+            
           </motion.div>
         </div>
       </section>
@@ -499,7 +487,9 @@ const About = () => {
                 className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg flex items-center gap-2"
               >
                 <Phone className="h-5 w-5" />
+               <Link to={"/contact"} onClick={() => window.scrollTo(0,0)}>
                 Contact Us
+                </Link>
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -507,7 +497,9 @@ const About = () => {
                 className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition-all duration-300 flex items-center gap-2"
               >
                 <ArrowRight className="h-5 w-5" />
+                <Link to={"/vehicles"} onClick={() => window.scrollTo(0,0)}>
                 Browse Vehicles
+                </Link>
               </motion.button>
             </div>
           </motion.div>
