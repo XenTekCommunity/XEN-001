@@ -314,7 +314,7 @@ const VehicleDetail = () => {
                 <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex items-center justify-center">
                   <div className="text-center p-6">
                     <Lock className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                    <h3 className="text-xl font-bold text-gray-800 mb-2">Premium Features Locked</h3>
+                    <h3 className="text-xl font-bold text-gray-800 mb-2">Exclusive Features Locked</h3>
                     <p className="text-gray-600 mb-6">
                       Sign in to explore comprehensive vehicle analysis, market insights, and exclusive dealer contacts
                     </p>
@@ -335,7 +335,7 @@ const VehicleDetail = () => {
 
                 {/* Blurred Content */}
                 <div className="space-y-4 opacity-50">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Premium Vehicle Insights</h3>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Exclusive Vehicle Insights</h3>
                   {premiumFeatures.slice(0, 3).map((feature, index) => (
                     <div key={index} className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
                       <div className="bg-blue-100 p-2 rounded-lg">
@@ -362,7 +362,7 @@ const VehicleDetail = () => {
               >
                 <div className="flex items-center mb-4">
                   <Award className="h-6 w-6 text-blue-600 mr-2" />
-                  <h3 className="text-lg font-semibold text-gray-800">Premium Vehicle Insights</h3>
+                  <h3 className="text-lg font-semibold text-gray-800">Exclusive Vehicle Insights</h3>
                   <span className="ml-auto bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">
                     Exclusive
                   </span>
