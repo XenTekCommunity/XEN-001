@@ -107,34 +107,38 @@ const BrandPage = () => {
   }
 
   return (
-    <div className="pt-20 min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
+    <div className="pt-20 md:pt-20 min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-4 sm:py-8">
         {/* Navigation */}
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="flex items-center justify-between mb-8"
+          className="flex items-center justify-between mb-6 sm:mb-8"
         >
           <Link
             to="/vehicles"
             className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors duration-300"
           >
-            <ArrowLeft className="h-5 w-5" />
-            <span>Back to All Vehicles</span>
+            <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+            <span className="text-sm sm:text-base">Back to All Vehicles</span>
           </Link>
         </motion.div>
 
         {/* Brand Header */}
-        <motion.div initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="text-center mb-12">
-          <div className="flex items-center justify-center mb-6">
+        <motion.div
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="text-center mb-8 sm:mb-12"
+        >
+          <div className="flex flex-col sm:flex-row items-center justify-center mb-4 sm:mb-6 space-y-4 sm:space-y-0 sm:space-x-6">
             <img
               src={brandInfo.logo || "/placeholder.svg"}
               alt={brandInfo.name}
-              className="w-24 h-24 object-contain mr-6"
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain"
             />
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-2">{brandInfo.name} Vehicles</h1>
-              <p className="text-xl text-gray-600">
+            <div className="text-center sm:text-left">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">{brandInfo.name} Vehicles</h1>
+              <p className="text-lg sm:text-xl text-gray-600">
                 Discover our collection of {brandVehicles.length} premium {brandInfo.name} vehicles
               </p>
             </div>
@@ -142,19 +146,19 @@ const BrandPage = () => {
         </motion.div>
 
         {/* Controls */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-          <div className="flex items-center space-x-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
+          <div className="flex items-center space-x-4 w-full sm:w-auto">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center space-x-2 bg-white px-4 py-2 rounded-lg border hover:bg-gray-50 transition-colors duration-300"
+              className="flex items-center space-x-2 bg-white px-3 sm:px-4 py-2 rounded-lg border hover:bg-gray-50 transition-colors duration-300 text-sm sm:text-base"
             >
               <Filter className="h-4 w-4" />
               <span>Filters</span>
             </button>
-            <span className="text-gray-600">{filteredVehicles.length} vehicles found</span>
+            <span className="text-gray-600 text-sm sm:text-base">{filteredVehicles.length} vehicles found</span>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center justify-between sm:justify-end space-x-4 w-full sm:w-auto">
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => setViewMode("grid")}
@@ -177,7 +181,7 @@ const BrandPage = () => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="bg-white border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
             >
               <option value="featured">Featured</option>
               <option value="price-low">Price: Low to High</option>
@@ -195,21 +199,21 @@ const BrandPage = () => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="bg-white rounded-lg p-6 mb-8 shadow-lg"
+            className="bg-white rounded-lg p-4 sm:p-6 mb-6 sm:mb-8 shadow-lg"
           >
-            <div className="grid md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Price Range</label>
                 <select
                   value={filters.priceRange}
                   onChange={(e) => handleFilterChange("priceRange", e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                 >
                   <option value="All">All Prices</option>
-                  <option value="0-20000">Under $20,000</option>
-                  <option value="20000-30000">$20,000 - $30,000</option>
-                  <option value="30000-40000">$30,000 - $40,000</option>
-                  <option value="40000">Above $40,000</option>
+                  <option value="0-20000">Under ₹20,00,000</option>
+                  <option value="20000-30000">₹20,00,000 - ₹30,00,000</option>
+                  <option value="30000-40000">₹30,00,000 - ₹40,00,000</option>
+                  <option value="40000">Above ₹40,00,000</option>
                 </select>
               </div>
 
@@ -218,7 +222,7 @@ const BrandPage = () => {
                 <select
                   value={filters.year}
                   onChange={(e) => handleFilterChange("year", e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                 >
                   <option value="All">All Years</option>
                   <option value="2021">2021</option>
@@ -233,7 +237,7 @@ const BrandPage = () => {
                 <select
                   value={filters.fuel}
                   onChange={(e) => handleFilterChange("fuel", e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                 >
                   <option value="All">All Types</option>
                   <option value="Petrol">Petrol</option>
@@ -247,7 +251,7 @@ const BrandPage = () => {
                 <select
                   value={filters.transmission}
                   onChange={(e) => handleFilterChange("transmission", e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                 >
                   <option value="All">All Types</option>
                   <option value="Automatic">Automatic</option>
@@ -259,7 +263,7 @@ const BrandPage = () => {
             <div className="mt-4 flex justify-end">
               <button
                 onClick={clearFilters}
-                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors duration-300"
+                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors duration-300 text-sm"
               >
                 Clear Filters
               </button>
@@ -268,7 +272,13 @@ const BrandPage = () => {
         )}
 
         {/* Vehicles Grid/List */}
-        <div className={viewMode === "grid" ? "grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" : "space-y-6"}>
+        <div
+          className={
+            viewMode === "grid"
+              ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
+              : "space-y-4 sm:space-y-6"
+          }
+        >
           {filteredVehicles.map((vehicle, index) => (
             <VehicleCard key={vehicle.id} vehicle={vehicle} index={index} viewMode={viewMode} />
           ))}

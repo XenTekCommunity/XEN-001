@@ -1,316 +1,163 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { Search, Menu, X, Car, Zap } from "lucide-react"
+import { Search, Bell, Menu, X, Home, Briefcase, Building2, FileText, ChevronDown, ChevronUp, UserCircle, LogIn, LogOut, Star, Laptop, Server, Smartphone, Book, Video, MessageCircle, Settings, Mail } from "lucide-react"
 import { SignInButton, SignUpButton, UserButton, useUser, useClerk } from "@clerk/clerk-react"
-// Add the import for AdminLogin component at the top
-import AdminLogin from "./AdminLogin"
+
+const NAV_LINKS = [
+  { name: "Home", path: "/", icon: <Home className="mr-2 h-5 w-5" /> },
+  { name: "Vehicles", path: "/vehicles", icon: <Briefcase className="mr-2 h-5 w-5" /> },
+  { name: "About", path: "/about", icon: <FileText className="mr-2 h-5 w-5" /> },
+  { name: "Contact", path: "/contact", icon: <Mail className="mr-2 h-5 w-5" /> },
+]
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  // Add state for admin login modal after existing states
-  const [showAdminLogin, setShowAdminLogin] = useState(false)
   const navigate = useNavigate()
-  const location = useLocation()
   const { isSignedIn, user } = useUser()
-  const { signOut } = useClerk()
+  const hasMounted = useRef(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
+    hasMounted.current = true
+  }, [])
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 10)
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : ""
+    return () => { document.body.style.overflow = "" }
+  }, [isMenuOpen])
 
   const handleSearch = (e) => {
     e.preventDefault()
     if (searchQuery.trim()) {
       navigate(`/vehicles?search=${encodeURIComponent(searchQuery)}`)
+      setIsMenuOpen(false)
     }
-  }
-
-  const scrollToSection = (sectionId) => {
-    if (location.pathname !== "/") {
-      navigate("/")
-      setTimeout(() => {
-        const element = document.getElementById(sectionId)
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" })
-        }
-      }, 100)
-    } else {
-      const element = document.getElementById(sectionId)
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" })
-      }
-    }
-    setIsMenuOpen(false)
   }
 
   return (
-    <>
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-          isScrolled ? "bg-white/98 backdrop-blur-md shadow-lg border-b border-gray-200/50" : "bg-white shadow-md"
-        }`}
-      >
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Premium Logo */}
-            <Link to="/">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center space-x-3 cursor-pointer group"
-              >
-                <div className="relative">
-                  <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-                    <Car className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-3 h-3 lg:w-4 lg:h-4 bg-gradient-to-r from-orange-400 to-red-500 rounded-full flex items-center justify-center">
-                    <Zap className="h-1.5 w-1.5 lg:h-2 lg:w-2 text-white" />
-                  </div>
-                </div>
-                <div className="hidden sm:block">
-                  <h1 className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">
-                    AutoHub
-                  </h1>
-                  <p className="text-xs text-gray-500 -mt-1">Premium Vehicles</p>
-                </div>
-              </motion.div>
-            </Link>
-
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-8">
-              {[
-                { name: "Home", path: "/" },
-                { name: "Vehicles", path: "/vehicles" },
-                { name: "Services", action: () => scrollToSection("services") },
-                { name: "About", path: "/about" },
-                { name: "Contact", path: "/contact" },
-              ].map((item, index) => (
-                <motion.div
-                  key={item.name}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 + 0.3 }}
-                >
-                  {item.path ? (
-                    <Link
-                      to={item.path}
-                      className="relative uppercase text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 group" onClick={()=>window.scrollTo(0,0)}
-                    >
-                      {item.name}
-                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
-                    </Link>
-                  ) : (
-                    <button
-                      onClick={item.action}
-                      className="relative uppercase text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 group"
-                    >
-                      {item.name}
-                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
-                    </button>
-                  )}
-                </motion.div>
-              ))}
+    <nav className={`glass-nav bg-white shadow-lg sticky top-0 z-50 transition-all duration-300 ${isScrolled ? "shadow-lg border-b" : "shadow-none"}`}>
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+        <div className="flex justify-between h-16 items-center w-full">
+          {/* Logo */}
+          <Link to="/" className="flex items-center group flex-shrink-0">
+            <div className="bg-blue-600 group-hover:bg-blue-700 p-2 rounded-lg transition-colors duration-300">
+              <Home className="text-white text-xl" />
             </div>
+            <span className="ml-3 text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">AutoHub</span>
+          </Link>
 
-            {/* Search and Auth */}
-            <div className="hidden md:flex items-center space-x-4">
-              <motion.form
-                onSubmit={handleSearch}
-                className="relative"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
+          {/* Main Navigation (Desktop) */}
+          <div className="hidden md:flex items-center space-x-1">
+            {NAV_LINKS.map(link => (
+              <Link
+                key={link.name}
+                to={link.path}
+                className="nav-link text-gray-700 hover:text-blue-600 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 transition-colors duration-200"
               >
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 z-10" />
-                  <input
-                    type="text"
-                    placeholder="Search vehicles..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onClick={() =>window.scrollTo(0,0)}
-                    className="bg-gray-50 border border-gray-200 rounded-full pl-11 pr-4 py-2.5 w-64 lg:w-72 focus:w-80 transition-all duration-300 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                  {searchQuery && (
-                    <button
-                      type="button"
-                      onClick={() => setSearchQuery("")}
-                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
-                    >
-                      ×
-                    </button>
-                  )}
-                </div>
-              </motion.form>
-
-              {/* Auth Section */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.6 }}
-                className="flex items-center space-x-3"
-              >
-                {isSignedIn ? (
-                  <div className="flex items-center space-x-3">
-                    <UserButton
-                      appearance={{
-                        elements: {
-                          avatarBox:
-                            "w-10 h-10 rounded-full border-2 border-blue-200 hover:border-blue-400 transition-colors duration-300",
-                        },
-                      }}
-                    />
-                  </div>
-                ) : (
-                  <div className="flex items-center space-x-2">
-                    <SignUpButton mode="modal">
-                      <button className="bg-black text-white font-medium px-4 py-2 rounded-lg hover:bg-gray-200 shadow-lg hover:text-black transition-all duration-300 transform hover:scale-105">
-                        SIGN UP
-                      </button>
-                    </SignUpButton>
-                  </div>
-                )}
-               
-              </motion.div>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <motion.button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 rounded-xl hover:bg-gray-100 transition-colors duration-300"
-              whileTap={{ scale: 0.95 }}
-            >
-              <AnimatePresence mode="wait">
-                {isMenuOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <X className="h-6 w-6" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Menu className="h-6 w-6" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.button>
+                {link.icon} {link.name}
+              </Link>
+            ))}
           </div>
 
-          {/* Mobile Menu */}
-          <AnimatePresence>
-            {isMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="lg:hidden border-t border-gray-200/50 bg-white"
-              >
-                <div className="px-4 py-6 space-y-4">
-                  {[
-                    { name: "Home", path: "/" },
-                    { name: "Vehicles", path: "/vehicles" },
-                    { name: "Services", action: () => scrollToSection("services") },
-                    { name: "About", path: "/about" },
-                    { name: "Contact", path: "/contact" },
-                  ].map((item, index) => (
-                    <motion.div
-                      key={item.name}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      {item.path ? (
-                        <Link
-                          to={item.path}
-                          onClick={() => setIsMenuOpen(false)}
-                          className="block text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300 py-2"
-                        >
-                          {item.name}
-                        </Link>
-                      ) : (
-                        <button
-                          onClick={item.action}
-                          className="block text-left text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300 py-2 w-full"
-                        >
-                          {item.name}
-                        </button>
-                      )}
-                    </motion.div>
-                  ))}
-
-                  {/* Mobile Search */}
-                  <motion.form
-                    onSubmit={handleSearch}
-                    className="relative mt-4"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                  >
-                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                    <input
-                      type="text"
-                      placeholder="Search vehicles..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                    />
-                  </motion.form>
-
-                  {/* Mobile Auth */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
-                    className="pt-4 border-t border-gray-200"
-                  >
-                    {isSignedIn ? (
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <UserButton />
-                          <span className="text-gray-700 font-medium">{user?.firstName || user?.username}</span>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="space-y-3">
-                        
-                        <SignUpButton mode="modal">
-                          <button className="w-full bg-black text-white font-medium py-2 rounded-lg transition-all duration-300">
-                            SIGN UP
-                          </button>
-                        </SignUpButton>
-                      </div>
-                    )}
-                  </motion.div>
-                </div>
-              </motion.div>
+          {/* Right Section - Actions */}
+          <div className="flex items-center space-x-2 flex-shrink-0">
+            {/* Desktop Search */}
+            <form onSubmit={handleSearch} className="hidden md:block relative w-40 lg:w-56 xl:w-64">
+              <input
+                type="text"
+                placeholder="Search cars, brands, models..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="search-premium pl-10 pr-4 py-2 w-full rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
+              {searchQuery && (
+                <button type="button" onClick={() => setSearchQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-lg">×</button>
+              )}
+            </form>
+            {/* User/Clerk */}
+            {isSignedIn ? (
+              <div className="dropdown relative">
+                <button className="flex items-center space-x-2 focus:outline-none group">
+                  <div className="relative">
+                    <UserButton appearance={{ elements: { avatarBox: "h-9 w-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 overflow-hidden avatar-ring" } }} />
+                    <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-500 border-2 border-white"></span>
+                  </div>
+                  <div className="hidden lg:flex flex-col items-start">
+                    <span className="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors duration-200">{user?.firstName || user?.username}</span>
+                    <span className="text-xs text-gray-500">{user?.primaryEmailAddress?.emailAddress || "User"}</span>
+                  </div>
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <SignInButton mode="modal">
+                  <button className="btn-premium px-4 py-2 text-sm flex items-center gap-1"><LogIn className="h-4 w-4" />Sign In</button>
+                </SignInButton>
+              </div>
             )}
-          </AnimatePresence>
+            {/* Hamburger for Mobile */}
+            <button className="md:hidden p-2 text-gray-600 hover:text-blue-600 rounded-lg hover:bg-gray-100 transition-colors duration-200" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Menu">
+              {isMenuOpen ? <X className="text-xl" /> : <Menu className="text-xl" />}
+            </button>
+          </div>
         </div>
-      </motion.nav>
-    </>
+      </div>
+      {/* Mobile Search Bar (always visible below navbar) */}
+      <div className="block md:hidden fixed top-16 left-0 w-full z-40 bg-white shadow-sm border-b border-gray-100 px-4 py-2 flex items-center gap-2" style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
+        <form onSubmit={handleSearch} className="flex flex-1 items-center bg-gray-100 rounded-full px-3 py-2 shadow-inner">
+          <Search className="text-gray-400 h-5 w-5 mr-2" />
+          <input
+            type="text"
+            placeholder="Search cars, brands, models..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400 text-base"
+          />
+          {searchQuery && (
+            <button type="button" onClick={() => setSearchQuery("")} className="ml-2 text-gray-400 hover:text-gray-600 text-lg" aria-label="Clear search">×</button>
+          )}
+        </form>
+      </div>
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div initial={{ maxHeight: 0 }} animate={{ maxHeight: 1000 }} exit={{ maxHeight: 0 }} transition={{ duration: 0.3 }} className="mobile-menu md:hidden bg-white border-t border-gray-200 overflow-hidden">
+            <div className="px-2 pt-2 pb-4 space-y-1">
+              {NAV_LINKS.map(link => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className="block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 flex items-center transition-colors duration-200"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.icon} {link.name}
+                </Link>
+              ))}
+              <div className="border-t border-gray-200 pt-2 mt-2">
+                {isSignedIn ? (
+                  <Link to="/profile" className="block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 flex items-center transition-colors duration-200"><UserCircle className="text-blue-500 mr-3 w-5" /> Profile</Link>
+                ) : (
+                  <SignInButton mode="modal">
+                    <button className="block w-full text-left px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 flex items-center transition-colors duration-200"><LogIn className="text-blue-500 mr-3 w-5" /> Sign In</button>
+                  </SignInButton>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
   )
 }
 

@@ -163,7 +163,7 @@ const About = () => {
       </div>
 
       {/* Hero Section */}
-      <section ref={heroRef} className="relative pt-24 pb-16 overflow-hidden">
+      <section ref={heroRef} className="relative pt-10 pb-8 sm:pt-24 sm:pb-16 overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -175,7 +175,7 @@ const About = () => {
               initial={{ scale: 0 }}
               animate={isHeroInView ? { scale: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mb-8 shadow-2xl"
+              className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mb-6 sm:mb-8 shadow-2xl"
             >
               <Car className="h-10 w-10 text-white" />
             </motion.div>
@@ -184,7 +184,7 @@ const About = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent mb-6"
+              className="text-3xl sm:text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent mb-4 sm:mb-6"
             >
               About AutoHub
             </motion.h1>
@@ -193,7 +193,7 @@ const About = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl text-gray-600 mb-8 leading-relaxed"
+              className="text-base sm:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed"
             >
               Transforming the way India buys and sells second-hand vehicles with trust, transparency, and innovation at
               our core.
@@ -205,9 +205,9 @@ const About = () => {
       </section>
 
       {/* Stats Section */}
-      <section ref={statsRef} className="py-16 bg-white/50 backdrop-blur-sm">
+      <section ref={statsRef} className="py-8 sm:py-16 bg-white/50 backdrop-blur-sm">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 gap-y-8">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
@@ -218,7 +218,7 @@ const About = () => {
               >
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: 5 }}
-                  className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r ${stat.color} rounded-full mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}
+                  className={`inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r ${stat.color} rounded-full mb-3 sm:mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}
                 >
                   <stat.icon className="h-8 w-8 text-white" />
                 </motion.div>
@@ -226,11 +226,11 @@ const About = () => {
                   initial={{ opacity: 0 }}
                   animate={isStatsInView ? { opacity: 1 } : {}}
                   transition={{ duration: 0.8, delay: index * 0.1 + 0.3 }}
-                  className="text-3xl font-bold text-gray-800 mb-2"
+                  className="text-2xl sm:text-3xl font-bold text-gray-800 mb-1 sm:mb-2"
                 >
                   {stat.number}
                 </motion.h3>
-                <p className="text-gray-600 font-medium">{stat.label}</p>
+                <p className="text-gray-600 font-medium text-sm sm:text-base">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -238,38 +238,36 @@ const About = () => {
       </section>
 
       {/* Mission, Vision, Values Tabs */}
-      <section className="py-16">
+      <section className="py-8 sm:py-16">
         <div className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-12"
+            className="text-center mb-8 sm:mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">What Drives Us</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">What Drives Us</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-base sm:text-lg">
               Our core principles that guide every decision and shape our journey towards excellence.
             </p>
           </motion.div>
 
           <div className="max-w-4xl mx-auto">
             {/* Tab Navigation */}
-            <div className="flex justify-center mb-8">
-              <div className="bg-white rounded-full p-2 shadow-lg border">
-                {Object.keys(tabContent).map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                      activeTab === tab
-                        ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
-                        : "text-gray-600 hover:text-blue-600"
-                    }`}
-                  >
-                    {tabContent[tab].title}
-                  </button>
-                ))}
-              </div>
+            <div className="flex flex-col xs:flex-row justify-center mb-6 sm:mb-8 gap-2 xs:gap-4">
+              {Object.keys(tabContent).map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`px-4 py-2 sm:px-6 sm:py-3 rounded-full font-semibold transition-all duration-300 text-sm sm:text-base ${
+                    activeTab === tab
+                      ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
+                      : "text-gray-600 hover:text-blue-600 bg-white border"
+                  }`}
+                >
+                  {tabContent[tab].title}
+                </button>
+              ))}
             </div>
 
             {/* Tab Content */}
@@ -278,59 +276,59 @@ const About = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="bg-white rounded-2xl p-8 shadow-xl border text-center"
+              className="bg-white rounded-2xl p-4 sm:p-8 shadow-xl border text-center"
             >
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mb-6"
+                className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mb-4 sm:mb-6"
               >
                 {activeTab === "mission" && <Target className="h-8 w-8 text-white" />}
                 {activeTab === "vision" && <Eye className="h-8 w-8 text-white" />}
                 {activeTab === "values" && <Heart className="h-8 w-8 text-white" />}
               </motion.div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">{tabContent[activeTab].title}</h3>
-              <p className="text-gray-600 text-lg leading-relaxed">{tabContent[activeTab].content}</p>
+              <h3 className="text-lg sm:text-2xl font-bold text-gray-800 mb-2 sm:mb-4">{tabContent[activeTab].title}</h3>
+              <p className="text-gray-600 text-base sm:text-lg leading-relaxed">{tabContent[activeTab].content}</p>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Values Section */}
-      <section ref={valuesRef} className="py-16 bg-gradient-to-r from-blue-50 to-purple-50">
+      <section ref={valuesRef} className="py-8 sm:py-16 bg-gradient-to-r from-blue-50 to-purple-50">
         <div className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isValuesInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-center mb-12"
+            className="text-center mb-8 sm:mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Core Values</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">Our Core Values</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-base sm:text-lg">
               The fundamental beliefs that shape our culture and drive our commitment to excellence.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 gap-y-8">
             {values.map((value, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 50 }}
                 animate={isValuesInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group hover:-translate-y-2"
+                className="bg-white rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 group hover:-translate-y-2 text-center"
               >
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: 10 }}
-                  className={`inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r ${value.color} rounded-full mb-4 shadow-lg`}
+                  className={`inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r ${value.color} rounded-full mb-3 sm:mb-4 shadow-lg`}
                 >
                   <value.icon className="h-7 w-7 text-white" />
                 </motion.div>
-                <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                <h3 className="text-base sm:text-xl font-bold text-gray-800 mb-2 sm:mb-3 group-hover:text-blue-600 transition-colors duration-300">
                   {value.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">{value.description}</p>
+                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{value.description}</p>
               </motion.div>
             ))}
           </div>
