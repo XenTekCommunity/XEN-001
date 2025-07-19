@@ -62,6 +62,7 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 to={link.path}
+                onClick={() => window.scrollTo(0,0)}
                 className="nav-link text-gray-700 hover:text-blue-600 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 transition-colors duration-200"
               >
                 {link.icon} {link.name}

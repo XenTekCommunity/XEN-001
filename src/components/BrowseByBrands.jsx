@@ -94,7 +94,7 @@ const BrowseByBrands = () => {
 
               <div className="relative z-10">
                 {/* Brand Logo Container */}
-                <div className="w-20 h-20 mx-auto mb-4 bg-gray-50 rounded-xl flex items-center justify-center group-hover:bg-white transition-colors duration-300 overflow-hidden">
+                <div className="w-20 h-20 mx-auto mb-4 bg-gray-50 rounded-xl flex items-center justify-center group-hover:bg-white transition-colors duration-300 overflow-hidden" onClick={() => window.scrollTo(0,0)}>
                   <img
                     src={brand.logo || "/placeholder.svg"}
                     alt={`${brand.name} logo`}
@@ -132,7 +132,7 @@ const BrowseByBrands = () => {
                   whileHover={{ x: 4 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <span>View Collection</span>
+                  <span onClick={() =>window.scrollTo(0,0)}>View Collection</span>
                   <motion.div animate={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
                     <ArrowRight className="h-4 w-4 ml-2" />
                   </motion.div>
